@@ -1,0 +1,27 @@
+{
+  "name": "k6-practicing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && ./scripts/run-tests.sh all",
+    "test:smoke": "npm run build && ./scripts/run-tests.sh smoke",
+    "test:load": "npm run build && ./scripts/run-tests.sh load",
+    "test:stress": "npm run build && ./scripts/run-tests.sh stress",
+    "test:spike": "npm run build && ./scripts/run-tests.sh spike",
+    "test:functional": "npm run build && ./scripts/run-tests.sh functional",
+    "test:boundary": "npm run build && ./scripts/run-tests.sh boundary",
+    "test:performance": "npm run build && ./scripts/run-tests.sh performance",
+    "clean": "./scripts/run-tests.sh clean",
+    "check": "./scripts/run-tests.sh check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/k6": "^1.2.0",
+    "typescript": "^5.9.2"
+  }
+}
