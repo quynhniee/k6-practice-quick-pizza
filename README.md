@@ -8,17 +8,17 @@ This repository contains comprehensive k6 test scenarios for testing a pizza ord
 src/
 ├── main/
 │   ├── common/
-│   │   ├── constants.ts       # Test constants and configuration
-│   │   └── interfaces.ts      # TypeScript interfaces
+│   │   ├── constants.js       # Test constants and configuration
+│   │   └── interfaces.js      # JavaScript interfaces (JSDoc comments)
 │   ├── config/
-│   │   └── quick-pizza-config.ts  # API configuration
+│   │   └── quick-pizza-config.js  # API configuration
 │   └── utils/
-│       └── generate-randomly-data.ts  # Data generation utilities
+│       └── generate-randomly-data.js  # Data generation utilities
 └── test/
-    ├── order-pizza.ts         # Main comprehensive test scenarios
-    ├── functional-tests.ts    # Functional API behavior tests
-    ├── performance-tests.ts   # Performance-focused tests
-    └── boundary-tests.ts      # Boundary and edge case tests
+    ├── order-pizza.js         # Main comprehensive test scenarios
+    ├── functional-tests.js    # Functional API behavior tests
+    ├── performance-tests.js   # Performance-focused tests
+    └── boundary-tests.js      # Boundary and edge case tests
 ```
 
 ## Test Scenarios
@@ -157,40 +157,42 @@ chmod +x scripts/run-tests.sh
 
 **Request Structure:**
 
-```typescript
+```javascript
 {
-  customName: string;
-  excludedIngredients: string[];
-  excludedTools: string[];
-  maxCaloriesPerSlice: number;
-  maxNumberOfToppings: number;
-  minNumberOfToppings: number;
-  mustBeVegetarian: boolean;
+  customName: "string",
+  excludedIngredients: ["string"],
+  excludedTools: ["string"],
+  maxCaloriesPerSlice: 300,
+  maxNumberOfToppings: 5,
+  minNumberOfToppings: 2,
+  mustBeVegetarian: false
 }
 ```
 
 **Response Structure:**
 
-```typescript
+```javascript
 {
-  calories: number;
+  calories: 1200,
   pizza: {
-    id: number;
-    name: string;
+    id: 123,
+    name: "Custom Pizza",
     dough: {
-      ID: number;
-      name: string;
-      caloriesPerSlice: number;
-    }
-    tool: string;
-    ingredients: Array<{
-      ID: number;
-      name: string;
-      caloriesPerSlice: number;
-      vegetarian: boolean;
-    }>;
-  }
-  vegetarian: boolean;
+      ID: 1,
+      name: "Regular",
+      caloriesPerSlice: 100
+    },
+    tool: "Pizza cutter",
+    ingredients: [
+      {
+        ID: 2,
+        name: "Cheese",
+        caloriesPerSlice: 50,
+        vegetarian: true
+      }
+    ]
+  },
+  vegetarian: true
 }
 ```
 
@@ -235,15 +237,15 @@ Test results are saved in the `reports/` directory with timestamps:
 ### Adding New Test Scenarios
 
 1. Create new test file in `src/test/`
-2. Import necessary modules and interfaces
+2. Import necessary modules
 3. Define test configuration and scenarios
 4. Add to test runner script
 
 ### Modifying Test Data
 
-- Update `src/main/utils/generate-randomly-data.ts` for random data generation
+- Update `src/main/utils/generate-randomly-data.js` for random data generation
 - Modify test case objects in individual test files
-- Adjust constants in `src/main/common/constants.ts`
+- Adjust constants in `src/main/common/constants.js`
 
 ### Performance Tuning
 
@@ -264,8 +266,7 @@ Test results are saved in the `reports/` directory with timestamps:
 
 ### Common Issues
 
-- **k6 not found**: Install k6 from https://k6.io/docs/getting-started/installation/
-- **TypeScript errors**: Run `npm run build` to compile
+- **k6 not found**: Install k6 from the official installation guide
 - **Permission denied**: Make script executable with `chmod +x scripts/run-tests.sh`
 - **High error rates**: Check API availability and reduce load
 

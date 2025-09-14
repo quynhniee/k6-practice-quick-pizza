@@ -51,15 +51,10 @@ check_k6() {
     print_success "k6 is installed: $(k6 version)"
 }
 
-# Function to compile TypeScript
-compile_ts() {
-    print_status "Compiling TypeScript files..."
-    if command -v tsc &> /dev/null; then
-        npx tsc --build
-        print_success "TypeScript compilation completed"
-    else
-        print_warning "TypeScript compiler not found, assuming pre-compiled files exist"
-    fi
+# Function for JavaScript (no compilation needed)
+prepare_js() {
+    print_status "Using JavaScript files (no compilation needed)..."
+    print_success "Ready to run tests"
 }
 
 # Function to run smoke tests
@@ -70,7 +65,7 @@ run_smoke_test() {
     k6 run \
         --out json="$output_file" \
         --env TEST_TYPE=smoke \
-        "$SCRIPTS_DIR/order-pizza.ts" || {
+        "$SCRIPTS_DIR/order-pizza.js" || {
         print_error "Smoke test failed"
         return 1
     }
@@ -86,7 +81,7 @@ run_load_test() {
     k6 run \
         --out json="$output_file" \
         --env TEST_TYPE=load \
-        "$SCRIPTS_DIR/order-pizza.ts" || {
+        "$SCRIPTS_DIR/order-pizza.js" || {
         print_error "Load test failed"
         return 1
     }
@@ -102,7 +97,7 @@ run_stress_test() {
     k6 run \
         --out json="$output_file" \
         --env TEST_TYPE=stress \
-        "$SCRIPTS_DIR/order-pizza.ts" || {
+        "$SCRIPTS_DIR/order-pizza.js" || {
         print_error "Stress test failed"
         return 1
     }
@@ -118,7 +113,7 @@ run_spike_test() {
     k6 run \
         --out json="$output_file" \
         --env TEST_TYPE=spike \
-        "$SCRIPTS_DIR/order-pizza.ts" || {
+        "$SCRIPTS_DIR/order-pizza.js" || {
         print_error "Spike test failed"
         return 1
     }
@@ -133,7 +128,7 @@ run_functional_test() {
     
     k6 run \
         --out json="$output_file" \
-        "$SCRIPTS_DIR/functional-tests.ts" || {
+        "$SCRIPTS_DIR/functional-tests.js" || {
         print_error "Functional test failed"
         return 1
     }
@@ -148,7 +143,7 @@ run_boundary_test() {
     
     k6 run \
         --out json="$output_file" \
-        "$SCRIPTS_DIR/boundary-tests.ts" || {
+        "$SCRIPTS_DIR/boundary-tests.js" || {
         print_error "Boundary test failed"
         return 1
     }
@@ -163,7 +158,7 @@ run_performance_test() {
     
     k6 run \
         --out json="$output_file" \
-        "$SCRIPTS_DIR/performance-tests.ts" || {
+        "$SCRIPTS_DIR/performance-tests.js" || {
         print_error "Performance test failed"
         return 1
     }
@@ -209,7 +204,7 @@ show_help() {
     echo "  performance Run comprehensive performance tests"
     echo "  all         Run all test suites"
     echo "  clean       Clean old reports"
-    echo "  compile     Compile TypeScript files"
+    echo "  compile     Prepare JavaScript files"
     echo "  help        Show this help message"
     echo ""
     echo "Examples:"
@@ -227,46 +222,46 @@ main() {
             check_k6
             ;;
         "compile")
-            compile_ts
+            prepare_js
             ;;
         "smoke")
             check_k6
-            compile_ts
+            prepare_js
             run_smoke_test
             ;;
         "load")
             check_k6
-            compile_ts
+            prepare_js
             run_load_test
             ;;
         "stress")
             check_k6
-            compile_ts
+            prepare_js
             run_stress_test
             ;;
         "spike")
             check_k6
-            compile_ts
+            prepare_js
             run_spike_test
             ;;
         "functional")
             check_k6
-            compile_ts
+            prepare_js
             run_functional_test
             ;;
         "boundary")
             check_k6
-            compile_ts
+            prepare_js
             run_boundary_test
             ;;
         "performance")
             check_k6
-            compile_ts
+            prepare_js
             run_performance_test
             ;;
         "all")
             check_k6
-            compile_ts
+            prepare_js
             run_all_tests
             ;;
         "clean")
