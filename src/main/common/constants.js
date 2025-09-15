@@ -19,9 +19,9 @@ exports.HTTP_STATUS = {
 
 // Performance thresholds
 exports.THRESHOLDS = {
-  HTTP_REQ_DURATION: "http_req_duration<2000", // 95% of requests should complete within 2s
-  HTTP_REQ_FAILED: "http_req_failed<0.1", // Error rate should be less than 10%
-  CHECKS: "checks>0.95", // 95% of checks should pass
+  HTTP_REQ_DURATION: "p<2000", // 95% of requests should complete within 2s
+  HTTP_REQ_FAILED: "rate<0.1", // Error rate should be less than 10%
+  CHECKS: "rate>0.95", // 95% of checks should pass
 };
 
 // Test data
